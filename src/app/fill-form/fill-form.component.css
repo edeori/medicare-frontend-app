@@ -1,0 +1,19 @@
+.example-h2 {
+    margin: 10px;
+}
+
+.form-section {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    height: 100px;
+    margin: 0 12px;
+}
+
+.form-margin {
+    margin: 0 12px;
+}
+
+mat-slider {
+    width: 300px;
+}

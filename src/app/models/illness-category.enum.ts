@@ -1,0 +1,21 @@
+export enum IllnessCategoryEnum {
+    BLOOD = 'Blood',
+	CANCER_AND_NEOPLASMS = 'Cancer and Neoplasms',
+	CARDIOVASCULAR = 'Cardiovascular',
+	EAR = 'Ear',
+	EYE = 'Eye',
+	INFECTION = 'Infection',
+	INFLAMMATORY_AND_IMMUNE_SYSTEM = 'Inflammatory and Immune System',
+	INJURIES_AND_ACCIDENTS = 'Injuries and Accidents',
+	MENTAL_HEALTH = 'Mental Healt',
+	METABOLIC_AND_ENDOCRINE = 'Metabolic and Endocrine',
+	MUSCULOSKELETAL = 'Musculoskeletal',
+	NEUROLOGICAL = 'Neurological',
+	ORAL_AND_GASTROINTESTINAL = 'Oral and Gastrointestinal',
+	RENAL_AND_UROGENITAL = 'Renal and Urogenital',
+	REPRODUCTIVE_HEALTH_AND_CHILDBIRTH = 'Reproductive Health and Childbirth',
+	RESPIRATORY = 'Respiratory',
+	SKIN = 'Skin',
+	STROKE = 'Stroke',
+	UNKNOWN = 'Unknown'
+}

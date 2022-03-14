@@ -1,0 +1,12 @@
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-left">
+            <button mat-icon-button (click)="onOpenClick(!openStatus)"><mat-icon>auto_graph</mat-icon></button>
+        </div>
+        <app-menu (menuSelected)="onNavigate($event)"></app-menu>
+
+        <div class="navbar-right">
+            <app-login></app-login>
+        </div>
+    </div>
+</nav>
