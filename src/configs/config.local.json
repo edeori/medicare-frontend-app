@@ -1,0 +1,6 @@
+{
+    "keycloakClientId": "medicare",
+    "keycloakRealm": "Medicare",
+    "apiUrl": "/_services",
+    "authUrl": "http://localhost:8088/auth"
+}

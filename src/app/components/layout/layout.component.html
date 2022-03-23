@@ -1,0 +1,16 @@
+<app-header (menuSelected)="onNavigate($event)" (opened)="onSideNavToogle($event)">
+</app-header>
+
+<mat-sidenav-container>
+    <mat-sidenav #sidenav class="mat-elevation-z8 " [opened]="openStatus">
+        <app-sidebar-left></app-sidebar-left>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <div class="content mat-elevation-z8 ">
+            <app-about *ngIf="activeSelection==='about' "></app-about>
+            <app-calculate *ngIf="activeSelection==='calculate' "></app-calculate>
+            <app-fill-form *ngIf="activeSelection==='form' "></app-fill-form>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

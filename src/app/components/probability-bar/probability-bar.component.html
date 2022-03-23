@@ -1,6 +1,11 @@
-<div>
-    <h1>{{seconds}} %</h1>
-    <mat-progress-spinner mode="determinate" class="col-xs-4" value="{{seconds}}">
-        {{seconds}} %
-    </mat-progress-spinner>
-</div>
+<mat-card class="card">
+    <mat-card-title-group>
+        <mat-card-title>{{name}}</mat-card-title>
+        <mat-progress-spinner mode="determinate" class="col-xs-4 spinner" value="{{percent}}">
+            {{percent}} %
+        </mat-progress-spinner>
+    </mat-card-title-group>
+    <mat-card-content>
+        {{percent}} %
+    </mat-card-content>
+</mat-card>

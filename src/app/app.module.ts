@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -15,16 +15,51 @@ import { MatDividerModule } from '@angular/material/divider';
 import { AboutComponent } from './about/about.component';
 import { CalculateComponent } from './calculate/calculate.component';
 import { FillFormComponent } from './fill-form/fill-form.component';
-import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ProbabilityBarComponent } from './components/probability-bar/probability-bar.component';
-import {MatSelectModule} from '@angular/material/select';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import {MatSliderModule} from '@angular/material/slider';
+import { MatSliderModule } from '@angular/material/slider';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from "@angular/material/form-field";
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCardModule } from '@angular/material/card';
+import { KeycloakAngularModule, KeycloakEventType, KeycloakService } from 'keycloak-angular';
+import { AppConfiguratorService } from './_services/app-configurator.service';
+import { NgxsModule, Store } from '@ngxs/store';
+import { AppStateActions } from './state/app.actions';
+import SetAuthenticatedUser = AppStateActions.SetAuthenticatedUser;
+import { AppState } from './state/app.state';
+import { environment } from 'src/environments/environment';
+import { RouterModule } from '@angular/router';
+import { LayoutComponent } from './components/layout/layout.component';
+import { AppRoutingModule } from './app-routing.module';
+import { MatMenuModule} from '@angular/material/menu';
+
+const appInitializerFn = (keycloak: KeycloakService, appConfigService: AppConfiguratorService) => {
+  return async () => {
+    await appConfigService.loadConfig();
+
+    return keycloak.init({
+      config: {
+        url: appConfigService.configuration.authUrl,
+        realm: appConfigService.configuration.keycloakRealm,
+        clientId: appConfigService.configuration.keycloakClientId,
+      },
+      initOptions: {
+        onLoad: 'check-sso',
+        silentCheckSsoRedirectUri:
+          window.location.origin + '/assets/silent-check-sso.html',
+      },
+      enableBearerInterceptor: true,
+      bearerExcludedUrls: ['/public'],
+      loadUserProfileAtStartUp: true,
+    });
+  };
+};
 
 @NgModule({
   declarations: [
@@ -36,9 +71,11 @@ import {HttpClientModule} from '@angular/common/http';
     AboutComponent,
     CalculateComponent,
     FillFormComponent,
-    ProbabilityBarComponent
+    ProbabilityBarComponent,
+    LayoutComponent    
   ],
   imports: [
+    KeycloakAngularModule,
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
@@ -55,9 +92,60 @@ import {HttpClientModule} from '@angular/common/http';
     MatSliderModule,
     MatInputModule,
     MatFormFieldModule,
-    HttpClientModule
+    HttpClientModule,
+    MatCheckboxModule,
+    MatCardModule,
+    MatMenuModule,
+    NgxsModule.forRoot([AppState], {
+      developmentMode: !environment.production,
+  }),
+  RouterModule,
+  AppRoutingModule
+  // NgxsLoggerPluginModule.forRoot({
+  //     disabled: environment.production
+  // }),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: appInitializerFn,
+      multi: true,
+      deps: [KeycloakService, AppConfiguratorService]
+    }
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(
+    private _store: Store,
+    private _kc: KeycloakService
+    ) {
+    this._kc.keycloakEvents$.subscribe(event => {
+      
+      switch (event.type) {
+        case KeycloakEventType.OnAuthSuccess:
+          return this._handleAuthSuccess();
+        case KeycloakEventType.OnTokenExpired:
+          return this._refreshToken();
+        default:
+          return;
+      }
+
+    });
+  }
+
+  private _handleAuthSuccess() {
+    this._kc.loadUserProfile().then(user => {
+      this._store.dispatch(new SetAuthenticatedUser({
+        firstName: user.firstName || '',
+        lastName: user.lastName || '',
+        username: user.username || ''
+      }));
+    });
+  }
+
+  private _refreshToken() {
+    this._kc.updateToken(20);
+  }
+
+}

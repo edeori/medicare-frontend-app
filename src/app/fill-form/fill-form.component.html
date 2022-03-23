@@ -1,136 +1,138 @@
-<form [formGroup]="helathStatusForm" fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center">
-    <section class="form-section">
-        <mat-form-field appearance="fill">
-            <mat-label>Choose a date</mat-label>
-            <input matInput [matDatepicker]="picker">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
+<div class="content-container">
+    <form [formGroup]="helathStatusForm" fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center">
+        <section class="form-section">
+            <mat-form-field appearance="fill">
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="picker">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
 
-        <mat-form-field appearance="fill">
-            <mat-label>Gender</mat-label>
-            <mat-select name="gender" ngDefaultControl>
-                <mat-option *ngFor="let gender of genderEnum" [value]="gender">
-                    {{gender}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Gender</mat-label>
+                <mat-select name="gender" ngDefaultControl>
+                    <mat-option *ngFor="let gender of genderEnum" [value]="gender">
+                        {{gender}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
 
-        <label for="weight">Weight: </label>
-        <input id="weight" type="text" name="weight" ngDefaultControl>
+            <label for="weight">Weight: </label>
+            <input id="weight" type="text" name="weight" ngDefaultControl>
 
-        <label for="height">Height: </label>
-        <input id="height" type="text" name="height" ngDefaultControl>
-    </section>
+            <label for="height">Height: </label>
+            <input id="height" type="text" name="height" ngDefaultControl>
+        </section>
 
-    <section class="form-section">
-        <mat-form-field appearance="fill">
-            <mat-label>Relationship Status</mat-label>
-            <mat-select name="relationshipStatus" ngDefaultControl>
-                <mat-option *ngFor="let relationshipStatus of relationshipStatusEnum" [value]="relationshipStatus">
-                    {{relationshipStatus}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+        <section class="form-section">
+            <mat-form-field appearance="fill">
+                <mat-label>Relationship Status</mat-label>
+                <mat-select name="relationshipStatus" ngDefaultControl>
+                    <mat-option *ngFor="let relationshipStatus of relationshipStatusEnum" [value]="relationshipStatus">
+                        {{relationshipStatus}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
 
-        <mat-checkbox name="doHaveKids" class="form-margin" ngDefaultControl>Do you have kids?</mat-checkbox>
-    </section>
+            <mat-checkbox name="doHaveKids" class="form-margin" ngDefaultControl>Do you have kids?</mat-checkbox>
+        </section>
 
-    <section class="form-section">
-        <mat-form-field appearance="fill">
-            <mat-label>Job Type</mat-label>
-            <mat-select name="jobType" ngDefaultControl>
-                <mat-option *ngFor="let jobType of jobTypeEnum" [value]="jobType">
-                    {{jobType}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+        <section class="form-section">
+            <mat-form-field appearance="fill">
+                <mat-label>Job Type</mat-label>
+                <mat-select name="jobType" ngDefaultControl>
+                    <mat-option *ngFor="let jobType of jobTypeEnum" [value]="jobType">
+                        {{jobType}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
 
-        <mat-form-field appearance="fill">
-            <mat-label>Job Activity</mat-label>
-            <mat-select name="jobActivity" ngDefaultControl>
-                <mat-option *ngFor="let jobActivity of jobActivityEnum" [value]="jobActivity">
-                    {{jobActivity}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Job Activity</mat-label>
+                <mat-select name="jobActivity" ngDefaultControl>
+                    <mat-option *ngFor="let jobActivity of jobActivityEnum" [value]="jobActivity">
+                        {{jobActivity}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
 
-        <mat-form-field appearance="fill">
-            <mat-label>Living Location</mat-label>
-            <mat-select name="livingLocation" ngDefaultControl>
-                <mat-option *ngFor="let livingLocation of livingLocationEnum" [value]="livingLocation">
-                    {{livingLocation}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Living Location</mat-label>
+                <mat-select name="livingLocation" ngDefaultControl>
+                    <mat-option *ngFor="let livingLocation of livingLocationEnum" [value]="livingLocation">
+                        {{livingLocation}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
 
-        <mat-form-field appearance="fill">
-            <mat-label>Race</mat-label>
-            <mat-select name="race" ngDefaultControl>
-                <mat-option *ngFor="let race of raceEnum" [value]="race">
-                    {{race}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-    </section>
+            <mat-form-field appearance="fill">
+                <mat-label>Race</mat-label>
+                <mat-select name="race" ngDefaultControl>
+                    <mat-option *ngFor="let race of raceEnum" [value]="race">
+                        {{race}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </section>
 
-    <section class="form-section">
-        <label for="weight">Average Sleep Time</label>
-        <input id="weight" type="text" name="averageSleepTime" ngDefaultControl>
+        <section class="form-section">
+            <label for="weight">Average Sleep Time</label>
+            <input id="weight" type="text" name="averageSleepTime" ngDefaultControl>
 
-        <label for="weight">Wake Up Time</label>
-        <input id="weight" type="text" name="wakeUpTime" ngDefaultControl>
+            <label for="weight">Wake Up Time</label>
+            <input id="weight" type="text" name="wakeUpTime" ngDefaultControl>
 
-        <label for="weight">On Screen Time</label>
-        <input id="weight" type="text" name="onScreenTime" ngDefaultControl>
-    </section>
+            <label for="weight">On Screen Time</label>
+            <input id="weight" type="text" name="onScreenTime" ngDefaultControl>
+        </section>
 
-    <section class="form-section">
-        <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="1" step="1" min="0" max="10" aria-label="units" formControlName="averageStressLevel"></mat-slider>
-    </section>
+        <section class="form-section">
+            <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="1" step="1" min="0" max="10" aria-label="units" formControlName="averageStressLevel"></mat-slider>
+        </section>
 
-    <section class="form-section">
-        <mat-checkbox class="form-margin" name="regularEating" ngDefaultControl>Are you a regular eater?</mat-checkbox>
+        <section class="form-section">
+            <mat-checkbox class="form-margin" name="regularEating" ngDefaultControl>Are you a regular eater?</mat-checkbox>
 
-        <label for="weight">Meals per day?</label>
-        <input id="weight" type="text" name="mealsPerDay" ngDefaultControl>
-    </section>
+            <label for="weight">Meals per day?</label>
+            <input id="weight" type="text" name="mealsPerDay" ngDefaultControl>
+        </section>
 
-    <section class="form-section">
-        <mat-form-field appearance="fill">
-            <mat-label>Eating</mat-label>
-            <mat-select name="eating" ngDefaultControl>
-                <mat-option *ngFor="let eating of eatingEnum" [value]="eating">
-                    {{eating}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+        <section class="form-section">
+            <mat-form-field appearance="fill">
+                <mat-label>Eating</mat-label>
+                <mat-select name="eating" ngDefaultControl>
+                    <mat-option *ngFor="let eating of eatingEnum" [value]="eating">
+                        {{eating}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
 
-        <mat-form-field appearance="fill">
-            <mat-label>Diet</mat-label>
-            <mat-select name="diet" ngDefaultControl>
-                <mat-option *ngFor="let diet of dietEnum" [value]="diet">
-                    {{diet}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Diet</mat-label>
+                <mat-select name="diet" ngDefaultControl>
+                    <mat-option *ngFor="let diet of dietEnum" [value]="diet">
+                        {{diet}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
 
-        <mat-form-field appearance="fill">
-            <mat-label>Alcohol Regularity</mat-label>
-            <mat-select name="alcoholRegularity" ngDefaultControl>
-                <mat-option *ngFor="let alcoholRegularity of alcoholRegularityEnum" [value]="alcoholRegularity">
-                    {{alcoholRegularity}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-    </section>
+            <mat-form-field appearance="fill">
+                <mat-label>Alcohol Regularity</mat-label>
+                <mat-select name="alcoholRegularity" ngDefaultControl>
+                    <mat-option *ngFor="let alcoholRegularity of alcoholRegularityEnum" [value]="alcoholRegularity">
+                        {{alcoholRegularity}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </section>
 
-    <section class="form-section">
-        <mat-checkbox class="form-margin" name="isSmoking" ngDefaultControl>Do you smoke?</mat-checkbox>
-        <mat-checkbox class="form-margin" name="doUseDrugs" ngDefaultControl>Do you use drugs?</mat-checkbox>
-        <mat-checkbox class="form-margin" name="doHaveGlasses" ngDefaultControl>Do you wear glasses?</mat-checkbox>
-        <mat-checkbox class="form-margin" name="alcoholRdoHavePetgularity" ngDefaultControl>Do you have pets?</mat-checkbox>
-    </section>
+        <section class="form-section">
+            <mat-checkbox class="form-margin" name="isSmoking" ngDefaultControl>Do you smoke?</mat-checkbox>
+            <mat-checkbox class="form-margin" name="doUseDrugs" ngDefaultControl>Do you use drugs?</mat-checkbox>
+            <mat-checkbox class="form-margin" name="doHaveGlasses" ngDefaultControl>Do you wear glasses?</mat-checkbox>
+            <mat-checkbox class="form-margin" name="alcoholRdoHavePetgularity" ngDefaultControl>Do you have pets?</mat-checkbox>
+        </section>
 
-    <button type="button" (click)="submitForm()">Submit</button>
-</form>
+        <button type="button" (click)="submitForm()">Submit</button>
+    </form>
+</div>

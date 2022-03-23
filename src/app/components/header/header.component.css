@@ -1,0 +1,8 @@
+.navbar {
+    margin-bottom: auto;
+}
+
+.navbar-right {
+    float: right!important;
+    margin-right: auto;
+}

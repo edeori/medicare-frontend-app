@@ -1,1 +1,3 @@
-<app-probability-bar></app-probability-bar>
+<div *ngFor="let prob of probabilityList" fxLayout="row">
+    <app-probability-bar [percent]="prob.percent" [name]="prob.name"></app-probability-bar>
+</div>

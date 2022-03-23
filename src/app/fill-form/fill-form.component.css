@@ -14,6 +14,12 @@
     margin: 0 12px;
 }
 
+.content-container {
+    color: black;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin: auto;
+}
+
 mat-slider {
     width: 300px;
 }

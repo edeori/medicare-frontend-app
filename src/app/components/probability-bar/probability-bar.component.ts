@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-probability-bar',
@@ -7,10 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProbabilityBarComponent implements OnInit {
 
-  seconds = 0;
+  @Input() name: string = '';
+  @Input() percent: number = 0;
 
   constructor() {
-    this.seconds = 50;
   }
 
   ngOnInit(): void {

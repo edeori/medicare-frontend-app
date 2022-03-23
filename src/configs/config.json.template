@@ -1,0 +1,6 @@
+{
+    "keycloakClientId": "${KEYCLOAK_CLIENT_ID}",
+    "keycloakRealm": "${KEYCLOAK_REALM}",
+    "apiUrl": "${API_URL}",
+    "authUrl": "${AUTH_URL}"
+}

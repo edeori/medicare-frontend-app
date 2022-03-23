@@ -1,1 +1,9 @@
-<p>login works!</p>
+<div fxLayout="row" fxLayoutAlign="start center">
+    <button disableRipple mat-icon-button [matMenuTriggerFor]="userMenu" fxLayout="row">
+    <mat-icon>person_outline</mat-icon>
+    <span class="icon-button-label">{{ (authenticatedUser$ | async)?.username }}</span>
+</button>
+    <mat-menu #userMenu="matMenu">
+        <button mat-menu-item (click)="logout()">Logout</button>
+    </mat-menu>
+</div>

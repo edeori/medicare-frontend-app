@@ -9,6 +9,8 @@ import { RaceEnum } from '../models/race.enum';
 import { EatingEnum } from '../models/eating.enum';
 import { DietEnum } from '../models/diet.enum';
 import { AlcoholRegularityEnum } from '../models/alcohol-regularity.enum';
+import { FillFormService } from '../_services/fill-form-service';
+import { FillForm } from '../models/fill-form';
 
 @Component({
   selector: 'app-fill-form',
@@ -28,7 +30,7 @@ export class FillFormComponent implements OnInit {
   public dietEnum = Object.values(DietEnum).map(item => String(item));
   public alcoholRegularityEnum = Object.values(AlcoholRegularityEnum).map(item => String(item));
 
-  constructor(private _fb: FormBuilder) {
+  constructor(private _fb: FormBuilder, private fillFormService: FillFormService) {
     this.helathStatusForm = this._fb.group({
       weight: ['', [Validators.required]],
       height: ['', [Validators.required]],
@@ -64,7 +66,37 @@ export class FillFormComponent implements OnInit {
   }
 
   submitForm(){
+    let data: FillForm = {
+      alcoholRegularity: this.helathStatusForm.get('alcoholRegularity')?.value,
+      averageSleepTime: this.helathStatusForm.get('averageSleepTime')?.value,
+      averageStressLevel: this.helathStatusForm.get('averageStressLevel')?.value,
+      dateOfBirth: this.helathStatusForm.get('dateOfBirth')?.value,
+      diet: this.helathStatusForm.get('diet')?.value,
+      doHaveGlasses: this.helathStatusForm.get('doHaveGlasses')?.value,
+      doHaveKids: this.helathStatusForm.get('doHaveKids')?.value,
+      doHavePet: this.helathStatusForm.get('doHavePet')?.value,
+      doUseDrugs: this.helathStatusForm.get('doUseDrugs')?.value,
+      eating: this.helathStatusForm.get('eating')?.value,
+      gender: this.helathStatusForm.get('gender')?.value,
+      height: this.helathStatusForm.get('height')?.value,
+      isSmoking: this.helathStatusForm.get('isSmoking')?.value,
+      jobActivity: this.helathStatusForm.get('jobActivity')?.value,
+      jobType: this.helathStatusForm.get('jobType')?.value,
+      livingLocation: this.helathStatusForm.get('livingLocation')?.value,
+      mealsPerDay: this.helathStatusForm.get('mealsPerDay')?.value,
+      onScreenTime: this.helathStatusForm.get('onScreenTime')?.value,
+      race: this.helathStatusForm.get('race')?.value,
+      regularEating: this.helathStatusForm.get('regularEating')?.value,
+      relationshipStatus: this.helathStatusForm.get('relationshipStatus')?.value,
+      wakeUpTime: this.helathStatusForm.get('wakeUpTime')?.value,
+      weight: this.helathStatusForm.get('weight')?.value
+    };
 
+
+    this.fillFormService.create(data).subscribe(res => {
+      //dosmthing
+      console.log(res);
+    });
   }
 
 }

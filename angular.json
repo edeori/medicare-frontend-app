@@ -70,10 +70,13 @@
                             "browserTarget": "medicare-frontend-app:build:production"
                         },
                         "development": {
-                            "browserTarget": "medicare-frontend-app:build:development"
+                            "browserTarget": "medicare-frontend-app:build:development",
                         }
                     },
-                    "defaultConfiguration": "development"
+                    "defaultConfiguration": "development",
+                    "options": {
+                        "proxyConfig": "src/proxy.conf.json"
+                    }
                 },
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
