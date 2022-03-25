@@ -38,6 +38,9 @@ import { RouterModule } from '@angular/router';
 import { LayoutComponent } from './components/layout/layout.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MatMenuModule} from '@angular/material/menu';
+import {MatDialogModule} from '@angular/material/dialog';
+import { ConfirmationDialog } from './components/dialog/confirmation-dialog';
+import { EnumToArrayPipe } from './components/pipes/enum-to-array.pipe';
 
 const appInitializerFn = (keycloak: KeycloakService, appConfigService: AppConfiguratorService) => {
   return async () => {
@@ -72,7 +75,9 @@ const appInitializerFn = (keycloak: KeycloakService, appConfigService: AppConfig
     CalculateComponent,
     FillFormComponent,
     ProbabilityBarComponent,
-    LayoutComponent    
+    LayoutComponent,
+    ConfirmationDialog,
+    EnumToArrayPipe
   ],
   imports: [
     KeycloakAngularModule,
@@ -90,6 +95,7 @@ const appInitializerFn = (keycloak: KeycloakService, appConfigService: AppConfig
     MatDatepickerModule,
     MatNativeDateModule,
     MatSliderModule,
+    MatDialogModule,
     MatInputModule,
     MatFormFieldModule,
     HttpClientModule,
@@ -113,7 +119,8 @@ const appInitializerFn = (keycloak: KeycloakService, appConfigService: AppConfig
       deps: [KeycloakService, AppConfiguratorService]
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ConfirmationDialog]
 })
 export class AppModule {
   constructor(

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PropbabilityDTO } from '../models/probability-dto';
+import { PotentialIllnessDTO } from '../models/potential-illness-dto';
 import { CalculatorService } from '../_services/calculator-service';
 
 @Component({
@@ -8,17 +8,15 @@ import { CalculatorService } from '../_services/calculator-service';
   styleUrls: ['./calculate.component.css']
 })
 export class CalculateComponent implements OnInit {
-  public probabilityList: PropbabilityDTO[] = [];
+  public potentialIllnessList: PotentialIllnessDTO[] = [];
 
   constructor(private calculatorService: CalculatorService) {
-    this.probabilityList = this.calculatorService.getAllByUser();
+    //this.potentialIllnessList = this.calculatorService.getAllByUser().potentialIllnesses;
 
-    /*/
     this.calculatorService.getAllByUser().subscribe((res) => {
-      this.probabilityList = res;
-      this.probabilityList.sort((a, b) => a.name.localeCompare(b.name));
+      this.potentialIllnessList = res.potentialIllnesses;
+      this.potentialIllnessList.sort((a, b) => a.illness.localeCompare(b.illness));
     });
-/*/
   }
 
   ngOnInit(): void {

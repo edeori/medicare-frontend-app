@@ -10,7 +10,10 @@ import { EatingEnum } from '../models/eating.enum';
 import { DietEnum } from '../models/diet.enum';
 import { AlcoholRegularityEnum } from '../models/alcohol-regularity.enum';
 import { FillFormService } from '../_services/fill-form-service';
-import { FillForm } from '../models/fill-form';
+import { PatientDataDTO } from '../models/patient-data-dto';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialog } from '../components/dialog/confirmation-dialog';
+import { EnumToArrayPipe } from '../components/pipes/enum-to-array.pipe';
 
 @Component({
   selector: 'app-fill-form',
@@ -20,83 +23,114 @@ import { FillForm } from '../models/fill-form';
 export class FillFormComponent implements OnInit {
 
   public helathStatusForm: FormGroup;
-  public genderEnum = Object.values(GenderEnum).map(item => String(item));
-  public relationshipStatusEnum = Object.values(RelationshipStatusEnum).map(item => String(item));
-  public jobTypeEnum = Object.values(JobTypeEnum).map(item => String(item));
-  public jobActivityEnum = Object.values(JobActivityEnum).map(item => String(item));
-  public livingLocationEnum = Object.values(LivingLocationEnum).map(item => String(item));
-  public raceEnum = Object.values(RaceEnum).map(item => String(item));
-  public eatingEnum = Object.values(EatingEnum).map(item => String(item));
-  public dietEnum = Object.values(DietEnum).map(item => String(item));
-  public alcoholRegularityEnum = Object.values(AlcoholRegularityEnum).map(item => String(item));
+  public genderEnum = GenderEnum;
+  public relationshipStatusEnum = RelationshipStatusEnum;
+  public jobTypeEnum = JobTypeEnum;
+  public jobActivityEnum = JobActivityEnum;
+  public livingLocationEnum = LivingLocationEnum;
+  public raceEnum = RaceEnum;
+  public eatingEnum = EatingEnum;
+  public dietEnum = DietEnum;
+  public alcoholRegularityEnum = AlcoholRegularityEnum;
 
-  constructor(private _fb: FormBuilder, private fillFormService: FillFormService) {
+  constructor(private _fb: FormBuilder, private fillFormService: FillFormService, public dialog: MatDialog) {
     this.helathStatusForm = this._fb.group({
-      weight: ['', [Validators.required]],
-      height: ['', [Validators.required]],
       gender: ['', [Validators.required]],
       dateOfBirth: ['', [Validators.required]],
+      weight: ['', [Validators.required]],
+      height: ['', [Validators.required]],
       relationshipStatus: ['', [Validators.required]],
       doHaveKids: ['', [Validators.required]],
       jobType: ['', [Validators.required]],
       jobActivity: ['', [Validators.required]],
       livingLocation: ['', [Validators.required]],
       race: ['', [Validators.required]],
+
       averageSleepTime: ['', [Validators.required]],
-      wakeUpTime: ['', [Validators.required]],
       onScreenTime: ['', [Validators.required]],
+
       averageStressLevel: ['', [Validators.required]],
+
       regularEating: ['', [Validators.required]],
       mealsPerDay: ['', [Validators.required]],
       eating: ['', [Validators.required]],
       diet: ['', [Validators.required]],
       alcoholRegularity: ['', [Validators.required]],
-      isSmoking: ['', [Validators.required]],
+
+      doSmoke: ['', [Validators.required]],
       doUseDrugs: ['', [Validators.required]],
       doHaveGlasses: ['', [Validators.required]],
       doHavePet: ['', [Validators.required]]
     });
-   }
+  }
 
   ngOnInit(): void {
+    this.fillFormService.getPatientData().subscribe(
+      data => {
+        console.log(data);
+
+        this.helathStatusForm.setValue({
+          gender: data.gender,
+          dateOfBirth: data.dateOfBirth,
+          weight: data.weight,
+          height: data.height,
+          relationshipStatus: data.relationshipStatus,
+          doHaveKids: data.doHaveKids,
+          jobType: data.jobType,
+          jobActivity: data.jobActivity,
+          livingLocation: data.livingLocation,
+          race: data.race,
+
+          averageSleepTime: data.averageSleepTime,
+          onScreenTime: data.onScreenTime,
+
+          averageStressLevel: data.averageStressLevel,
+
+          regularEating: data.regularEating,
+          mealsPerDay: data.mealsPerDay,
+          eating: data.eating,
+          diet: data.diet,
+          alcoholRegularity: data.alcoholRegularity,
+
+          doSmoke: data.doSmoke,
+          doUseDrugs: data.doUseDrugs,
+          doHaveGlasses: data.doHaveGlasses,
+          doHavePet: data.doHavePet,
+        });
+      },
+      error => {
+        console.log('Not filled yet.');
+      }
+    );
   }
 
   formatLabel(value: number) {
     return Math.round(value * 10) + '%';
   }
 
-  submitForm(){
-    let data: FillForm = {
-      alcoholRegularity: this.helathStatusForm.get('alcoholRegularity')?.value,
-      averageSleepTime: this.helathStatusForm.get('averageSleepTime')?.value,
-      averageStressLevel: this.helathStatusForm.get('averageStressLevel')?.value,
-      dateOfBirth: this.helathStatusForm.get('dateOfBirth')?.value,
-      diet: this.helathStatusForm.get('diet')?.value,
-      doHaveGlasses: this.helathStatusForm.get('doHaveGlasses')?.value,
-      doHaveKids: this.helathStatusForm.get('doHaveKids')?.value,
-      doHavePet: this.helathStatusForm.get('doHavePet')?.value,
-      doUseDrugs: this.helathStatusForm.get('doUseDrugs')?.value,
-      eating: this.helathStatusForm.get('eating')?.value,
-      gender: this.helathStatusForm.get('gender')?.value,
-      height: this.helathStatusForm.get('height')?.value,
-      isSmoking: this.helathStatusForm.get('isSmoking')?.value,
-      jobActivity: this.helathStatusForm.get('jobActivity')?.value,
-      jobType: this.helathStatusForm.get('jobType')?.value,
-      livingLocation: this.helathStatusForm.get('livingLocation')?.value,
-      mealsPerDay: this.helathStatusForm.get('mealsPerDay')?.value,
-      onScreenTime: this.helathStatusForm.get('onScreenTime')?.value,
-      race: this.helathStatusForm.get('race')?.value,
-      regularEating: this.helathStatusForm.get('regularEating')?.value,
-      relationshipStatus: this.helathStatusForm.get('relationshipStatus')?.value,
-      wakeUpTime: this.helathStatusForm.get('wakeUpTime')?.value,
-      weight: this.helathStatusForm.get('weight')?.value
-    };
+  submitForm() {
+    if (this.helathStatusForm.valid) {
 
+      let data: PatientDataDTO = {
+        ...this.helathStatusForm.value
+      };
 
-    this.fillFormService.create(data).subscribe(res => {
-      //dosmthing
-      console.log(res);
-    });
+      console.log(data);
+
+      this.fillFormService.create(data).subscribe(res => {
+        //dosmthing
+        console.log(res);
+        this.dialog.open(ConfirmationDialog, {
+          width: '250px',
+          data: { title: 'Submitted', text: 'OK' },
+        })
+      });
+    } else {
+      this.dialog.open(ConfirmationDialog, {
+        width: '250px',
+        data: { title: 'Validation Error', text: 'Please fill form correctly' },
+      })
+    }
   }
 
 }
