@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { GenderEnum } from '../models/gender.enum';
 import { RelationshipStatusEnum } from '../models/relationship-status.enum';
 import { JobTypeEnum } from '../models/jobtype.enum';
 import { JobActivityEnum } from '../models/job-activity.enum';
-import { LivingLocationEnum } from '../models/living-location.enum';
+import { LivingLocationEnum, LivingLocationEnumMap } from '../models/living-location.enum';
 import { RaceEnum } from '../models/race.enum';
 import { EatingEnum } from '../models/eating.enum';
 import { DietEnum } from '../models/diet.enum';
@@ -14,6 +14,8 @@ import { PatientDataDTO } from '../models/patient-data-dto';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialog } from '../components/dialog/confirmation-dialog';
 import { EnumToArrayPipe } from '../components/pipes/enum-to-array.pipe';
+import { IllnessCategoryEnum } from '../models/illness-category.enum';
+import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
 
 @Component({
   selector: 'app-fill-form',
@@ -32,6 +34,7 @@ export class FillFormComponent implements OnInit {
   public eatingEnum = EatingEnum;
   public dietEnum = DietEnum;
   public alcoholRegularityEnum = AlcoholRegularityEnum;
+  public illnessCategoryEnum = IllnessCategoryEnum;
 
   constructor(private _fb: FormBuilder, private fillFormService: FillFormService, public dialog: MatDialog) {
     this.helathStatusForm = this._fb.group({
@@ -40,7 +43,7 @@ export class FillFormComponent implements OnInit {
       weight: ['', [Validators.required]],
       height: ['', [Validators.required]],
       relationshipStatus: ['', [Validators.required]],
-      doHaveKids: ['', [Validators.required]],
+      doHaveKids: '',
       jobType: ['', [Validators.required]],
       jobActivity: ['', [Validators.required]],
       livingLocation: ['', [Validators.required]],
@@ -51,16 +54,18 @@ export class FillFormComponent implements OnInit {
 
       averageStressLevel: ['', [Validators.required]],
 
-      regularEating: ['', [Validators.required]],
+      regularEating: '',
       mealsPerDay: ['', [Validators.required]],
       eating: ['', [Validators.required]],
       diet: ['', [Validators.required]],
       alcoholRegularity: ['', [Validators.required]],
 
-      doSmoke: ['', [Validators.required]],
-      doUseDrugs: ['', [Validators.required]],
-      doHaveGlasses: ['', [Validators.required]],
-      doHavePet: ['', [Validators.required]]
+      doSmoke: '',
+      doUseDrugs: '',
+      doHaveGlasses: '',
+      doHavePet: '',
+
+     // illnessCategoryList: ['', [Validators.required]]
     });
   }
 
@@ -108,11 +113,37 @@ export class FillFormComponent implements OnInit {
     return Math.round(value * 10) + '%';
   }
 
+  onCheckChange(event: any) {
+    const formArray: FormArray = this.helathStatusForm.get('illnessCategoryList') as FormArray;
+
+    /* Selected */
+    if(event.target.checked){
+       // Add a new control in the arrayForm
+       formArray.push(new FormControl(event.target.value));
+     }
+     /* unselected */
+     else{
+        // find the unselected element
+       let i: number = 0;
+
+      formArray.controls.forEach(ctrl => {
+        if(ctrl.value == event.target.value) {
+        // Remove the unselected element from the arrayForm
+        formArray.removeAt(i);
+        return;
+       }
+
+       i++;
+      });
+   }
+  }
+
   submitForm() {
     if (this.helathStatusForm.valid) {
 
       let data: PatientDataDTO = {
-        ...this.helathStatusForm.value
+        ...this.helathStatusForm.value,
+        livingLocation: LivingLocationEnumMap.get(this.helathStatusForm.get('livingLocation')?.value)
       };
 
       console.log(data);

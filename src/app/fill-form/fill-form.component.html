@@ -132,6 +132,14 @@
             <mat-checkbox class="form-margin" name="doHavePet" [formControlName]="'doHavePet'">Do you have pets?</mat-checkbox>
         </section>
 
+        
+        <!-- <section class="form-section">
+            <div class="form-group form-check form-check-inline" *ngFor="let illnessCategory of (illnessCategoryEnum | enumToArray)">
+                <input class="form-check-input" [value]="illnessCategory" type="checkbox" (change)="onCheckChange($event)" id="type">
+                <label class="form-check-label" for="illnessCategory">{{illnessCategory}}</label>
+            </div>
+        </section> -->
+
         <button type="button" (click)="submitForm()">Submit</button>
     </form>
 </div>
