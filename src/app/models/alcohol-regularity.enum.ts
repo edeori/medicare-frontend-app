@@ -5,3 +5,11 @@ export enum AlcoholRegularityEnum {
 	OCCASION = 'Occasion',
 	NEVER = 'Never'
 }
+
+export const AlcoholRegularityEnumMap = new Map<AlcoholRegularityEnum | string, string>([
+    [AlcoholRegularityEnum.DAILY, 'DAILY'],
+    [AlcoholRegularityEnum.MORE_THAN_ONCE_A_WEEK, 'MORE_THAN_ONCE_A_WEEK'],
+    [AlcoholRegularityEnum.WEEKEND, 'WEEKEND'],
+    [AlcoholRegularityEnum.OCCASION, 'OCCASION'],
+	[AlcoholRegularityEnum.NEVER, 'NEVER'],
+]);

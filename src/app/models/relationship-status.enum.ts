@@ -7,3 +7,13 @@ export enum RelationshipStatusEnum {
     DIVORCED = 'Divorced',
     WIDOWED = 'Widowed'
 }
+
+export const RelationshipStatusEnumMap = new Map<RelationshipStatusEnum | string, string>([
+    [RelationshipStatusEnum.SINGLE, 'SINGLE'],
+    [RelationshipStatusEnum.IN_A_RELATIONSHIP, 'IN_A_RELATIONSHIP'],
+    [RelationshipStatusEnum.ENGAGED, 'ENGAGED'],
+    [RelationshipStatusEnum.MARRIED, 'MARRIED'],
+    [RelationshipStatusEnum.SEPARATED, 'SEPARATED'],
+    [RelationshipStatusEnum.DIVORCED, 'DIVORCED'],
+    [RelationshipStatusEnum.WIDOWED, 'WIDOWED'],
+]);

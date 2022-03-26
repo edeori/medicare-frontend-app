@@ -15,3 +15,21 @@ export enum JobTypeEnum {
     HOSPITALITY = 'Hospitality',
     RETIRED = 'Retired'
 }
+
+export const JobTypeEnumMap = new Map<JobTypeEnum | string, string>([
+    [JobTypeEnum.STUDENT, 'STUDENT'],
+    [JobTypeEnum.STUDENT_AND_WORKING, 'STUDENT_AND_WORKING'],
+    [JobTypeEnum.AGRICULTURE, 'AGRICULTURE'],
+    [JobTypeEnum.ARCHITECTURE_AND_CONSTRUCTION, 'ARCHITECTURE_AND_CONSTRUCTION'],
+    [JobTypeEnum.ARTS, 'ARTS'],
+    [JobTypeEnum.BUSINESS_AND_FINANCE, 'BUSINESS_AND_FINANCE'],
+    [JobTypeEnum.EDUCATION_AND_TRAINING, 'EDUCATION_AND_TRAINING'],
+    [JobTypeEnum.GOVERNMENT_AND_PUBLIC_ADMINISTRATION, 'GOVERNMENT_AND_PUBLIC_ADMINISTRATION'],
+    [JobTypeEnum.HEALTH, 'HEALTH'],
+    [JobTypeEnum.INFORMATION_TECHNOLOGY, 'INFORMATION_TECHNOLOGY'],
+    [JobTypeEnum.FASHION, 'FASHION'],
+    [JobTypeEnum.GOODS, 'GOODS'],
+    [JobTypeEnum.SERVICE_CONTRACT, 'SERVICE_CONTRACT'],
+    [JobTypeEnum.HOSPITALITY, 'HOSPITALITY'],
+    [JobTypeEnum.RETIRED, 'RETIRED'],
+]);
