@@ -11,3 +11,10 @@ export const EatingEnumMap = new Map<EatingEnum | string, string>([
     [EatingEnum.ORDERING, 'ORDERING'],
     [EatingEnum.FASTFOOD, 'FASTFOOD'],
 ]);
+
+export const EatingEnumReMap = new Map<string, string>([
+    ['HOME_COOKED', 'Home Cooked'],
+    ['TAKE_AWAY', 'Take Away'],
+    ['ORDERING', 'Ordering'],
+    ['FASTFOOD', 'Fastfood'],
+]);

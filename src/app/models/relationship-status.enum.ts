@@ -17,3 +17,13 @@ export const RelationshipStatusEnumMap = new Map<RelationshipStatusEnum | string
     [RelationshipStatusEnum.DIVORCED, 'DIVORCED'],
     [RelationshipStatusEnum.WIDOWED, 'WIDOWED'],
 ]);
+
+export const RelationshipStatusEnumReMap = new Map<string, string>([
+    ['SINGLE', 'Single'],
+    ['IN_A_RELATIONSHIP', 'In a relationship'],
+    ['ENGAGED', 'Engaged'],
+    ['MARRIED', 'Married'],
+    ['SEPARATED', 'Separated'],
+    ['DIVORCED', 'Divorced'],
+    ['WIDOWED', 'Widowed'],
+]);

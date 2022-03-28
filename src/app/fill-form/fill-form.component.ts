@@ -1,20 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { GenderEnum, GenderEnumMap } from '../models/gender.enum';
-import { RelationshipStatusEnum, RelationshipStatusEnumMap } from '../models/relationship-status.enum';
-import { JobTypeEnum, JobTypeEnumMap } from '../models/jobtype.enum';
-import { JobActivityEnum, JobActivityEnumMap } from '../models/job-activity.enum';
-import { LivingLocationEnum, LivingLocationEnumMap } from '../models/living-location.enum';
-import { RaceEnum, RaceEnumMap } from '../models/race.enum';
-import { EatingEnum, EatingEnumMap } from '../models/eating.enum';
-import { DietEnum, DietEnumMap } from '../models/diet.enum';
-import { AlcoholRegularityEnum, AlcoholRegularityEnumMap } from '../models/alcohol-regularity.enum';
+import { GenderEnum, GenderEnumMap, GenderEnumReMap } from '../models/gender.enum';
+import { RelationshipStatusEnum, RelationshipStatusEnumMap, RelationshipStatusEnumReMap } from '../models/relationship-status.enum';
+import { JobTypeEnum, JobTypeEnumMap, JobTypeEnumReMap } from '../models/jobtype.enum';
+import { JobActivityEnum, JobActivityEnumMap, JobActivityEnumReMap } from '../models/job-activity.enum';
+import { LivingLocationEnum, LivingLocationEnumMap, LivingLocationEnumReMap } from '../models/living-location.enum';
+import { RaceEnum, RaceEnumMap, RaceEnumReMap } from '../models/race.enum';
+import { EatingEnum, EatingEnumMap, EatingEnumReMap } from '../models/eating.enum';
+import { DietEnum, DietEnumMap, DietEnumReMap } from '../models/diet.enum';
+import { AlcoholRegularityEnum, AlcoholRegularityEnumMap, AlcoholRegularityEnumReMap } from '../models/alcohol-regularity.enum';
 import { FillFormService } from '../_services/fill-form-service';
 import { PatientDataDTO } from '../models/patient-data-dto';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialog } from '../components/dialog/confirmation-dialog';
-import { IllnessCategoryEnum, IllnessCategoryEnumMap } from '../models/illness-category.enum';
-import { SportActivityEnumMap } from '../models/sport-activity.enum';
+import { IllnessCategoryEnum, IllnessCategoryEnumMap, IllnessCategoryEnumReMap } from '../models/illness-category.enum';
+import { SportActivityEnum, SportActivityEnumMap, SportActivityEnumReMap } from '../models/sport-activity.enum';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-fill-form',
@@ -34,6 +35,19 @@ export class FillFormComponent implements OnInit {
   public dietEnum = DietEnum;
   public alcoholRegularityEnum = AlcoholRegularityEnum;
   public illnessCategoryEnum = IllnessCategoryEnum;
+  public sportActivityEnum = SportActivityEnum;
+
+  activeSportActivities = Object.values(SportActivityEnum).map(item => String(item));
+  postSportActivities = Object.values(SportActivityEnum).map(item => String(item));
+  knownIllnesses = Object.values(IllnessCategoryEnum).map(item => String(item));
+  ancestorIllnesses = Object.values(IllnessCategoryEnum).map(item => String(item));
+  ancestorDeathCauses = Object.values(IllnessCategoryEnum).map(item => String(item));
+
+  activeSportActivitiesAdded: string[] = [];
+  postSportActivitiesAdded: string[] = [];
+  knownIllnessesAdded: string[] = [];
+  ancestorIllnessesAdded: string[] = [];
+  ancestorDeathCausesAdded: string[] = [];
 
   constructor(private _fb: FormBuilder, private fillFormService: FillFormService, public dialog: MatDialog) {
     this.helathStatusForm = this._fb.group({
@@ -64,30 +78,36 @@ export class FillFormComponent implements OnInit {
       doHaveGlasses: '',
       doHavePet: '',
 
-      activeSportActivities: '',
-      postSportActivities: '',
+      activeSportActivities: new FormArray([]),
+      postSportActivities: new FormArray([]),
 
-      knownIllnesses: '',
-      ancestorIllnesses: '',
-      ancestorDeathCauses: '',
+      knownIllnesses: new FormArray([]),
+      ancestorIllnesses: new FormArray([]),
+      ancestorDeathCauses: new FormArray([]),
     });
+
+    this.initForm();
   }
 
   ngOnInit(): void {
+  }
+
+  initForm(): void {
     this.fillFormService.getPatientData().subscribe(
       data => {
-        this.helathStatusForm.setValue({
-          
-          gender: data.gender,
+        console.log(data);
+        this.helathStatusForm.patchValue({
+
+          gender: GenderEnumReMap.get(data.gender),
           dateOfBirth: data.dateOfBirth,
           weight: data.weight,
           height: data.height,
-          relationshipStatus: data.relationshipStatus,
+          relationshipStatus: RelationshipStatusEnumReMap.get(data.relationshipStatus),
           doHaveKids: data.doHaveKids,
-          jobType: data.jobType,
-          jobActivity: data.jobActivity,
-          livingLocation: data.livingLocation,
-          race: data.race,
+          jobType: JobTypeEnumReMap.get(data.jobType),
+          jobActivity: JobActivityEnumReMap.get(data.jobActivity),
+          livingLocation: LivingLocationEnumReMap.get(data.livingLocation),
+          race: RaceEnumReMap.get(data.race),
 
           averageSleepTime: data.averageSleepTime,
           onScreenTime: data.onScreenTime,
@@ -96,22 +116,21 @@ export class FillFormComponent implements OnInit {
 
           regularEating: data.regularEating,
           mealsPerDay: data.mealsPerDay,
-          eating: data.eating,
-          diet: data.diet,
-          alcoholRegularity: data.alcoholRegularity,
+          eating: EatingEnumReMap.get(data.eating),
+          diet: DietEnumReMap.get(data.diet),
+          alcoholRegularity: AlcoholRegularityEnumReMap.get(data.alcoholRegularity),
 
           doSmoke: data.doSmoke,
           doUseDrugs: data.doUseDrugs,
           doHaveGlasses: data.doHaveGlasses,
           doHavePet: data.doHavePet,
-
-          activeSportActivities: data.activeSportActivities,
-          postSportActivities: data.postSportActivities,
-
-          knownIllnesses: data.knownIllnesses,
-          ancestorIllnesses: data.ancestorIllnesses,
-          ancestorDeathCauses: data.ancestorDeathCauses,
         });
+
+        this.activeSportActivitiesAdded = data.activeSportActivities.map((x: string) => SportActivityEnumReMap.get(x)) as [];
+        this.postSportActivitiesAdded = data.postSportActivities.map((x: string) => SportActivityEnumReMap.get(x)) as [];
+        this.knownIllnessesAdded = data.knownIllnesses.map((x: string) => IllnessCategoryEnumReMap.get(x)) as [];
+        this.ancestorIllnessesAdded = data.ancestorIllnesses.map((x: string) => IllnessCategoryEnumReMap.get(x)) as [];
+        this.ancestorDeathCausesAdded = data.ancestorDeathCauses.map((x: string) => IllnessCategoryEnumReMap.get(x)) as [];
 
       },
       error => {
@@ -124,8 +143,16 @@ export class FillFormComponent implements OnInit {
     return Math.round(value * 10) + '%';
   }
 
-  onCheckChange(event: any) {
-    const formArray: FormArray = this.helathStatusForm.get('illnessCategoryList') as FormArray;
+  makeArrayOfFormControls(enums: any, type: string) {
+    const formArray: FormArray = this.helathStatusForm.get(type) as FormArray;
+
+    enums.forEach((element: any) => {
+      formArray.push(new FormControl(element));
+    });
+  }
+
+  onCheckChange(event: any, type: string) {
+    const formArray: FormArray = this.helathStatusForm.get(type) as FormArray;
 
     /* Selected */
     if (event.target.checked) {
@@ -143,14 +170,29 @@ export class FillFormComponent implements OnInit {
           formArray.removeAt(i);
           return;
         }
-
         i++;
       });
     }
   }
 
+  drop(event: CdkDragDrop<string[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+    }
+  }
+
   submitForm() {
     if (this.helathStatusForm.valid) {
+
+      console.log(this.activeSportActivitiesAdded);
+      console.log(this.postSportActivitiesAdded);
 
       let data: PatientDataDTO = {
         ...this.helathStatusForm.value,
@@ -164,12 +206,12 @@ export class FillFormComponent implements OnInit {
         diet: DietEnumMap.get(this.helathStatusForm.get('diet')?.value),
         alcoholRegularity: AlcoholRegularityEnumMap.get(this.helathStatusForm.get('alcoholRegularity')?.value),
 
-        activeSportActivities: this.helathStatusForm.get('activeSportActivities')?.value.map((x: string) => SportActivityEnumMap.get(x)),
-        postSportActivities: this.helathStatusForm.get('postSportActivities')?.value.map((x: string) => SportActivityEnumMap.get(x)),
+        activeSportActivities: this.activeSportActivitiesAdded.map((x: string) => SportActivityEnumMap.get(x)),
+        postSportActivities: this.postSportActivitiesAdded.map((x: string) => SportActivityEnumMap.get(x)),
 
-        knownIllnesses: this.helathStatusForm.get('knownIllnesses')?.value.map((x: string) => IllnessCategoryEnumMap.get(x)),
-        ancestorIllnesses: this.helathStatusForm.get('ancestorIllnesses')?.value.map((x: string) => IllnessCategoryEnumMap.get(x)),
-        ancestorDeathCauses: this.helathStatusForm.get('ancestorDeathCauses')?.value.map((x: string) => IllnessCategoryEnumMap.get(x)),
+        knownIllnesses: this.knownIllnessesAdded.map((x: string) => IllnessCategoryEnumMap.get(x)),
+        ancestorIllnesses: this.ancestorIllnessesAdded.map((x: string) => IllnessCategoryEnumMap.get(x)),
+        ancestorDeathCauses: this.ancestorDeathCausesAdded.map((x: string) => IllnessCategoryEnumMap.get(x)),
       };
 
       console.log(data);

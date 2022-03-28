@@ -41,6 +41,7 @@ import { MatMenuModule} from '@angular/material/menu';
 import {MatDialogModule} from '@angular/material/dialog';
 import { ConfirmationDialog } from './components/dialog/confirmation-dialog';
 import { EnumToArrayPipe } from './components/pipes/enum-to-array.pipe';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 const appInitializerFn = (keycloak: KeycloakService, appConfigService: AppConfiguratorService) => {
   return async () => {
@@ -102,6 +103,7 @@ const appInitializerFn = (keycloak: KeycloakService, appConfigService: AppConfig
     MatCheckboxModule,
     MatCardModule,
     MatMenuModule,
+    DragDropModule,
     NgxsModule.forRoot([AppState], {
       developmentMode: !environment.production,
   }),

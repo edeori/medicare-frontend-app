@@ -13,3 +13,11 @@ export const AlcoholRegularityEnumMap = new Map<AlcoholRegularityEnum | string, 
     [AlcoholRegularityEnum.OCCASION, 'OCCASION'],
 	[AlcoholRegularityEnum.NEVER, 'NEVER'],
 ]);
+
+export const AlcoholRegularityEnumReMap = new Map<string, string>([
+    ['DAILY', 'Daily'],
+    ['MORE_THAN_ONCE_A_WEEK', 'More than once a week'],
+    ['WEEKEND', 'Weekend'],
+    ['OCCASION', 'Occasion'],
+	['NEVER', 'Never'],
+]);

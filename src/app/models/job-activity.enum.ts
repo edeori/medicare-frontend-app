@@ -13,3 +13,11 @@ export const JobActivityEnumMap = new Map<JobActivityEnum | string, string>([
     [JobActivityEnum.DRIVING, 'DRIVING'],
     [JobActivityEnum.RETIRED, 'RETIRED'],
 ]);
+
+export const JobActivityEnumReMap = new Map<string, string>([
+    ['PHYSICAL', 'Physical'],
+    ['MENTAL', 'Mental'],
+    ['TRADE', 'Trade'],
+    ['DRIVING', 'Driving'],
+    ['RETIRED', 'Retired'],
+]);

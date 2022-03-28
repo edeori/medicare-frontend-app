@@ -1,145 +1,262 @@
 <div class="content-container">
     <form [formGroup]="helathStatusForm" fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center">
-        <section class="form-section">
-            <mat-form-field appearance="fill">
-                <mat-label>Choose a date</mat-label>
-                <input matInput [matDatepicker]="picker" [formControlName]="'dateOfBirth'">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-
-            <mat-form-field appearance="fill">
-                <mat-label>Gender</mat-label>
-                <mat-select name="gender" [formControlName]="'gender'">
-                    <mat-option *ngFor="let gender of (genderEnum | enumToArray)" [value]="gender">
-                        {{gender}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </section>
-        <section class="form-section">
-            <label for="weight">Weight: </label>
-            <input id="weight" type="text" name="weight" ngDefaultControl [formControlName]="'weight'">
-
-            <label for="height">Height: </label>
-            <input id="height" type="text" name="height" ngDefaultControl [formControlName]="'height'">
-        </section>
-
-        <section class="form-section">
-            <mat-form-field appearance="fill">
-                <mat-label>Relationship Status</mat-label>
-                <mat-select name="relationshipStatus" [formControlName]="'relationshipStatus'">
-                    <mat-option *ngFor="let relationshipStatus of (relationshipStatusEnum | enumToArray)" [value]="relationshipStatus">
-                        {{relationshipStatus}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-
-            <mat-checkbox name="doHaveKids" class="form-margin" [formControlName]="'doHaveKids'">Do you have kids?</mat-checkbox>
-        </section>
-
-        <section class="form-section">
-            <mat-form-field appearance="fill">
-                <mat-label>Job Type</mat-label>
-                <mat-select name="jobType" [formControlName]="'jobType'">
-                    <mat-option *ngFor="let jobType of (jobTypeEnum | enumToArray)" [value]="jobType">
-                        {{jobType}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-
-            <mat-form-field appearance="fill">
-                <mat-label>Job Activity</mat-label>
-                <mat-select name="jobActivity" [formControlName]="'jobActivity'">
-                    <mat-option *ngFor="let jobActivity of (jobActivityEnum | enumToArray)" [value]="jobActivity">
-                        {{jobActivity}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-
-            <mat-form-field appearance="fill">
-                <mat-label>Living Location</mat-label>
-                <mat-select name="livingLocation" [formControlName]="'livingLocation'">
-                    <mat-option *ngFor="let livingLocation of (livingLocationEnum | enumToArray)" [value]="livingLocation">
-                        {{livingLocation}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-
-            <mat-form-field appearance="fill">
-                <mat-label>Race</mat-label>
-                <mat-select name="race" [formControlName]="'race'">
-                    <mat-option *ngFor="let race of (raceEnum | enumToArray)" [value]="race">
-                        {{race}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </section>
-
-        <section class="form-section">
-            <label for="averageSleepTime">Average Sleep Time</label>
-            <input id="averageSleepTime" type="text" name="averageSleepTime" [formControlName]="'averageSleepTime'">
-
-            <label for="onScreenTime">On Screen Time</label>
-            <input id="onScreenTime" type="text" name="onScreenTime" [formControlName]="'onScreenTime'">
-        </section>
-
-        <section class="form-section">
-            <label for="averageStressLevel">Average Stress Level</label>
-            <mat-slider id="averageStressLevel" thumbLabel [displayWith]="formatLabel" tickInterval="1" step="1" min="0" max="10" aria-label="units" [formControlName]="'averageStressLevel'"></mat-slider>
-        </section>
-
-        <section class="form-section">
-            <mat-checkbox class="form-margin" name="regularEating" [formControlName]="'regularEating'">Are you a regular eater?</mat-checkbox>
-
-            <label for="mealsPerDay">Meals per day?</label>
-            <input id="mealsPerDay" type="text" name="mealsPerDay" [formControlName]="'mealsPerDay'">
-        </section>
-
-        <section class="form-section">
-            <mat-form-field appearance="fill">
-                <mat-label>Eating</mat-label>
-                <mat-select name="eating" [formControlName]="'eating'">
-                    <mat-option *ngFor="let eating of (eatingEnum | enumToArray)" [value]="eating">
-                        {{eating}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-
-            <mat-form-field appearance="fill">
-                <mat-label>Diet</mat-label>
-                <mat-select name="diet" [formControlName]="'diet'">
-                    <mat-option *ngFor="let diet of (dietEnum | enumToArray)" [value]="diet">
-                        {{diet}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-
-            <mat-form-field appearance="fill">
-                <mat-label>Alcohol Regularity</mat-label>
-                <mat-select name="alcoholRegularity" [formControlName]="'alcoholRegularity'">
-                    <mat-option *ngFor="let alcoholRegularity of (alcoholRegularityEnum | enumToArray)" [value]="alcoholRegularity">
-                        {{alcoholRegularity}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </section>
-
-        <section class="form-section">
-            <mat-checkbox class="form-margin" name="doSmoke" [formControlName]="'doSmoke'">Do you smoke?</mat-checkbox>
-            <mat-checkbox class="form-margin" name="doUseDrugs" [formControlName]="'doUseDrugs'">Do you use drugs?</mat-checkbox>
-            <mat-checkbox class="form-margin" name="doHaveGlasses" [formControlName]="'doHaveGlasses'">Do you wear glasses?</mat-checkbox>
-            <mat-checkbox class="form-margin" name="doHavePet" [formControlName]="'doHavePet'">Do you have pets?</mat-checkbox>
-        </section>
-
-        
-        <!-- <section class="form-section">
-            <div class="form-group form-check form-check-inline" *ngFor="let illnessCategory of (illnessCategoryEnum | enumToArray)">
-                <input class="form-check-input" [value]="illnessCategory" type="checkbox" (change)="onCheckChange($event)" id="type">
-                <label class="form-check-label" for="illnessCategory">{{illnessCategory}}</label>
+        <mat-card>
+            <div class="drag-row" fxLayout="row" fxLayoutGap="48px">
+                <div class="drag-col" fxFlex fxLayout="column">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Choose a date</mat-label>
+                        <input matInput [matDatepicker]="picker" [formControlName]="'dateOfBirth'">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="drag-col" fxFlex fxLayout="column">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Gender</mat-label>
+                        <mat-select name="gender" [formControlName]="'gender'">
+                            <mat-option *ngFor="let gender of (genderEnum | enumToArray)" [value]="gender">
+                                {{gender}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
             </div>
-        </section> -->
+        </mat-card>
 
-        <button type="button" (click)="submitForm()">Submit</button>
+        <mat-card>
+            <div class="drag-row" fxLayout="row" fxLayoutGap="48px">
+                <div class="drag-col" fxFlex fxLayout="column">
+                    <label for="weight">Weight: </label>
+                    <input id="weight" type="text" name="weight" ngDefaultControl [formControlName]="'weight'">
+                </div>
+                <div class="drag-col" fxFlex fxLayout="column">
+                    <label for="height">Height: </label>
+                    <input id="height" type="text" name="height" ngDefaultControl [formControlName]="'height'">
+                </div>
+                <div class="drag-col" fxFlex fxLayout="column">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Relationship Status</mat-label>
+                        <mat-select name="relationshipStatus" [formControlName]="'relationshipStatus'">
+                            <mat-option *ngFor="let relationshipStatus of (relationshipStatusEnum | enumToArray)" [value]="relationshipStatus">
+                                {{relationshipStatus}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="drag-col" fxFlex fxLayout="column">
+                    <mat-checkbox name="doHaveKids" class="form-margin" [formControlName]="'doHaveKids'">Do you have kids?</mat-checkbox>
+                </div>
+            </div>
+        </mat-card>
+
+        <mat-card>
+            <div class="drag-row" fxLayout="row" fxLayoutGap="48px">
+                <div class="drag-col" fxFlex fxLayout="column">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Job Type</mat-label>
+                        <mat-select name="jobType" [formControlName]="'jobType'">
+                            <mat-option *ngFor="let jobType of (jobTypeEnum | enumToArray)" [value]="jobType">
+                                {{jobType}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="drag-col" fxFlex fxLayout="column">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Job Activity</mat-label>
+                        <mat-select name="jobActivity" [formControlName]="'jobActivity'">
+                            <mat-option *ngFor="let jobActivity of (jobActivityEnum | enumToArray)" [value]="jobActivity">
+                                {{jobActivity}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="drag-col" fxFlex fxLayout="column">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Living Location</mat-label>
+                        <mat-select name="livingLocation" [formControlName]="'livingLocation'">
+                            <mat-option *ngFor="let livingLocation of (livingLocationEnum | enumToArray)" [value]="livingLocation">
+                                {{livingLocation}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="drag-col" fxFlex fxLayout="column">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Race</mat-label>
+                        <mat-select name="race" [formControlName]="'race'">
+                            <mat-option *ngFor="let race of (raceEnum | enumToArray)" [value]="race">
+                                {{race}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card>
+
+        <mat-card>
+            <div class="drag-row" fxLayout="row" fxLayoutGap="48px">
+                <div class="drag-col" fxFlex fxLayout="column">
+                    <label for="averageSleepTime">Average Sleep Time</label>
+                    <input id="averageSleepTime" type="text" name="averageSleepTime" [formControlName]="'averageSleepTime'">
+                </div>
+                <div class="drag-col" fxFlex fxLayout="column">
+                    <label for="onScreenTime">On Screen Time</label>
+                    <input id="onScreenTime" type="text" name="onScreenTime" [formControlName]="'onScreenTime'">
+                </div>
+            </div>
+        </mat-card>
+
+        <mat-card>
+            <div class="drag-row" fxLayout="row" fxLayoutGap="48px">
+                <div class="drag-col" fxFlex fxLayout="column">
+                    <label for="averageStressLevel">Average Stress Level</label>
+                    <mat-slider id="averageStressLevel" thumbLabel [displayWith]="formatLabel" tickInterval="1" step="1" min="0" max="10" aria-label="units" [formControlName]="'averageStressLevel'"></mat-slider>
+                </div>
+                <div class="drag-col" fxFlex fxLayout="column">
+                    <mat-checkbox class="form-margin" name="regularEating" [formControlName]="'regularEating'">Are you a regular eater?</mat-checkbox>
+                </div>
+                <div class="drag-col" fxFlex fxLayout="column">
+                    <label for="mealsPerDay">Meals per day?</label>
+                    <input id="mealsPerDay" type="text" name="mealsPerDay" [formControlName]="'mealsPerDay'">
+                </div>
+            </div>
+        </mat-card>
+
+        <mat-card>
+            <div class="drag-row" fxLayout="row" fxLayoutGap="48px">
+                <div class="drag-col" fxFlex fxLayout="column">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Eating</mat-label>
+                        <mat-select name="eating" [formControlName]="'eating'">
+                            <mat-option *ngFor="let eating of (eatingEnum | enumToArray)" [value]="eating">
+                                {{eating}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="drag-col" fxFlex fxLayout="column">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Diet</mat-label>
+                        <mat-select name="diet" [formControlName]="'diet'">
+                            <mat-option *ngFor="let diet of (dietEnum | enumToArray)" [value]="diet">
+                                {{diet}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="drag-col" fxFlex fxLayout="column">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Alcohol Regularity</mat-label>
+                        <mat-select name="alcoholRegularity" [formControlName]="'alcoholRegularity'">
+                            <mat-option *ngFor="let alcoholRegularity of (alcoholRegularityEnum | enumToArray)" [value]="alcoholRegularity">
+                                {{alcoholRegularity}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card>
+
+        <mat-card>
+            <div class="drag-row" fxLayout="row" fxLayoutGap="48px">
+                <div class="drag-col" fxFlex fxLayout="column">
+                    <mat-checkbox class="form-margin" name="doSmoke" [formControlName]="'doSmoke'">Do you smoke?</mat-checkbox>
+                </div>
+                <div class="drag-col" fxFlex fxLayout="column">
+                    <mat-checkbox class="form-margin" name="doUseDrugs" [formControlName]="'doUseDrugs'">Do you use drugs?</mat-checkbox>
+                </div>
+                <div class="drag-col" fxFlex fxLayout="column">
+                    <mat-checkbox class="form-margin" name="doHaveGlasses" [formControlName]="'doHaveGlasses'">Do you wear glasses?</mat-checkbox>
+                </div>
+                <div class="drag-col" fxFlex fxLayout="column">
+                    <mat-checkbox class="form-margin" name="doHavePet" [formControlName]="'doHavePet'">Do you have pets?</mat-checkbox>
+                </div>
+            </div>
+        </mat-card>
+
+        <mat-card>
+            <mat-card-title>Active Sport Activities</mat-card-title>
+            <div class="drag-row" fxLayout="row" fxLayoutGap="48px">
+                <div class="drag-col" fxFlex fxLayout="column">
+                    <div class="drop-list" cdkDropList #activeSportList="cdkDropList" [cdkDropListData]="activeSportActivities" [cdkDropListConnectedTo]="[activeSportAddedList]" (cdkDropListDropped)="drop($event)">
+                        <div class="drop-element" *ngFor="let item of activeSportActivities" cdkDrag>{{item}}</div>
+                    </div>
+                </div>
+                <div class="drag-col" fxFlex fxLayout="column">
+                    <div class="drop-list" cdkDropList #activeSportAddedList="cdkDropList" [cdkDropListData]="activeSportActivitiesAdded" [cdkDropListConnectedTo]="[activeSportList]" (cdkDropListDropped)="drop($event)">
+                        <div class="drop-element" *ngFor="let item of activeSportActivitiesAdded" cdkDrag>{{item}}</div>
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+
+        <mat-card>
+            <mat-card-title>Post Sport Activities</mat-card-title>
+            <div class="drag-row" fxLayout="row" fxLayoutGap="48px">
+                <div class="drag-col" fxFlex fxLayout="column">
+                    <div class="drop-list" cdkDropList #postSportList="cdkDropList" [cdkDropListData]="postSportActivities" [cdkDropListConnectedTo]="[postSportAddedList]" (cdkDropListDropped)="drop($event)">
+                        <div class="drop-element" *ngFor="let item of postSportActivities" cdkDrag>{{item}}</div>
+                    </div>
+                </div>
+                <div class="drag-col" fxFlex fxLayout="column">
+                    <div class="drop-list" cdkDropList #postSportAddedList="cdkDropList" [cdkDropListData]="postSportActivitiesAdded" [cdkDropListConnectedTo]="[postSportList]" (cdkDropListDropped)="drop($event)">
+                        <div class="drop-element" *ngFor="let item of postSportActivitiesAdded" cdkDrag>{{item}}</div>
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+
+        <mat-card>
+            <mat-card-title>Known Illnesses</mat-card-title>
+            <div class="drag-row" fxLayout="row" fxLayoutGap="48px">
+                <div class="drag-col" fxFlex fxLayout="column">
+                    <div class="drop-list" cdkDropList #knownIllnessesList="cdkDropList" [cdkDropListData]="knownIllnesses" [cdkDropListConnectedTo]="[knownIllnessesAddedList]" (cdkDropListDropped)="drop($event)">
+                        <div class="drop-element" *ngFor="let item of knownIllnesses" cdkDrag>{{item}}</div>
+                    </div>
+                </div>
+                <div class="drag-col" fxFlex fxLayout="column">
+                    <div class="drop-list" cdkDropList #knownIllnessesAddedList="cdkDropList" [cdkDropListData]="knownIllnessesAdded" [cdkDropListConnectedTo]="[knownIllnessesList]" (cdkDropListDropped)="drop($event)">
+                        <div class="drop-element" *ngFor="let item of knownIllnessesAdded" cdkDrag>{{item}}</div>
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+
+        <mat-card>
+            <mat-card-title>Ancestor Illnesses</mat-card-title>
+            <div class="drag-row" fxLayout="row" fxLayoutGap="48px">
+                <div class="drag-col" fxFlex fxLayout="column">
+                    <div class="drop-list" cdkDropList #ancestorIllnessesList="cdkDropList" [cdkDropListData]="ancestorIllnesses" [cdkDropListConnectedTo]="[ancestorIllnessesAddedList]" (cdkDropListDropped)="drop($event)">
+                        <div class="drop-element" *ngFor="let item of knownIllnesses" cdkDrag>{{item}}</div>
+                    </div>
+                </div>
+                <div class="drag-col" fxFlex fxLayout="column">
+                    <div class="drop-list" cdkDropList #ancestorIllnessesAddedList="cdkDropList" [cdkDropListData]="ancestorIllnessesAdded" [cdkDropListConnectedTo]="[ancestorIllnessesList]" (cdkDropListDropped)="drop($event)">
+                        <div class="drop-element" *ngFor="let item of ancestorIllnessesAdded" cdkDrag>{{item}}</div>
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+
+        <mat-card>
+            <mat-card-title>Ancestor Death Causes</mat-card-title>
+            <div class="drag-row" fxLayout="row" fxLayoutGap="48px">
+                <div class="drag-col" fxFlex fxLayout="column">
+                    <div class="drop-list" cdkDropList #ancestorDeathCausesList="cdkDropList" [cdkDropListData]="ancestorDeathCauses" [cdkDropListConnectedTo]="[ancestorDeathCausesAddedList]" (cdkDropListDropped)="drop($event)">
+                        <div class="drop-element" *ngFor="let item of knownIllnesses" cdkDrag>{{item}}</div>
+                    </div>
+                </div>
+                <div class="drag-col" fxFlex fxLayout="column">
+                    <div class="drop-list" cdkDropList #ancestorDeathCausesAddedList="cdkDropList" [cdkDropListData]="ancestorDeathCausesAdded" [cdkDropListConnectedTo]="[ancestorDeathCausesList]" (cdkDropListDropped)="drop($event)">
+                        <div class="drop-element" *ngFor="let item of ancestorDeathCausesAdded" cdkDrag>{{item}}</div>
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+
+        <mat-card>
+            <button type="button" (click)="submitForm()">Submit</button>
+        </mat-card>
     </form>
 </div>

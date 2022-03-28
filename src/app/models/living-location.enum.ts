@@ -11,3 +11,10 @@ export const LivingLocationEnumMap = new Map<LivingLocationEnum | string, string
     [LivingLocationEnum.COUNTRY, 'COUNTRY'],
     [LivingLocationEnum.VILLAGE, 'VILLAGE']
 ]);
+
+export const LivingLocationEnumReMap = new Map<string, string>([
+    ['CAPITAL_CITY', 'Capital City'],
+    ['CITY', 'City'],
+    ['COUNTRY', 'Country'],
+    ['VILLAGE', 'Village']
+]);
