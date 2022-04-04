@@ -11,6 +11,9 @@ import { RelationshipStatusEnum } from "./relationship-status.enum";
 import { SportActivityEnum } from "./sport-activity.enum";
 
 export interface PatientDataDTO {
+  id: string;
+  createdBy: string;
+
   gender: GenderEnum;
   dateOfBirth: string;
   weight: number;

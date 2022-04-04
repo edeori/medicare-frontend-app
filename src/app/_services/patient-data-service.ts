@@ -5,7 +5,7 @@ import { environment } from "src/environments/environment";
 import { PatientDataDTO } from "../models/patient-data-dto";
 
 @Injectable({ providedIn: 'root' })
-export class FillFormService {
+export class PatientDataService {
     base: string = '/api/DataStore';
     createUrl: string = '/PatientData';
     getUrl: string = '/PatientData/user';

@@ -228,7 +228,7 @@
             <div class="drag-row" fxLayout="row" fxLayoutGap="48px">
                 <div class="drag-col" fxFlex fxLayout="column">
                     <div class="drop-list" cdkDropList #ancestorIllnessesList="cdkDropList" [cdkDropListData]="ancestorIllnesses" [cdkDropListConnectedTo]="[ancestorIllnessesAddedList]" (cdkDropListDropped)="drop($event)">
-                        <div class="drop-element" *ngFor="let item of knownIllnesses" cdkDrag>{{item}}</div>
+                        <div class="drop-element" *ngFor="let item of ancestorIllnesses" cdkDrag>{{item}}</div>
                     </div>
                 </div>
                 <div class="drag-col" fxFlex fxLayout="column">
@@ -244,7 +244,7 @@
             <div class="drag-row" fxLayout="row" fxLayoutGap="48px">
                 <div class="drag-col" fxFlex fxLayout="column">
                     <div class="drop-list" cdkDropList #ancestorDeathCausesList="cdkDropList" [cdkDropListData]="ancestorDeathCauses" [cdkDropListConnectedTo]="[ancestorDeathCausesAddedList]" (cdkDropListDropped)="drop($event)">
-                        <div class="drop-element" *ngFor="let item of knownIllnesses" cdkDrag>{{item}}</div>
+                        <div class="drop-element" *ngFor="let item of ancestorDeathCauses" cdkDrag>{{item}}</div>
                     </div>
                 </div>
                 <div class="drag-col" fxFlex fxLayout="column">

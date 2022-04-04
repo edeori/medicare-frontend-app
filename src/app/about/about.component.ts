@@ -11,10 +11,7 @@ export class AboutComponent implements OnInit {
   headerText = 'The Header';
   aboutText = 'This is the about text.';
 
-  constructor(private aboutService: AboutService) {
-    //this.headerText = this.aboutService.getHeaderText();
-    //this.aboutText = this.aboutService.getAboutText();
-    
+  constructor(private aboutService: AboutService) {    
     this.aboutService.getAbout().subscribe((res) => {
       this.headerText = res.header;
       this.aboutText = res.about;

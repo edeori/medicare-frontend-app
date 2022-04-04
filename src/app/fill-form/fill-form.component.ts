@@ -9,13 +9,14 @@ import { RaceEnum, RaceEnumMap, RaceEnumReMap } from '../models/race.enum';
 import { EatingEnum, EatingEnumMap, EatingEnumReMap } from '../models/eating.enum';
 import { DietEnum, DietEnumMap, DietEnumReMap } from '../models/diet.enum';
 import { AlcoholRegularityEnum, AlcoholRegularityEnumMap, AlcoholRegularityEnumReMap } from '../models/alcohol-regularity.enum';
-import { FillFormService } from '../_services/fill-form-service';
 import { PatientDataDTO } from '../models/patient-data-dto';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialog } from '../components/dialog/confirmation-dialog';
 import { IllnessCategoryEnum, IllnessCategoryEnumMap, IllnessCategoryEnumReMap } from '../models/illness-category.enum';
 import { SportActivityEnum, SportActivityEnumMap, SportActivityEnumReMap } from '../models/sport-activity.enum';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { PatientDataService } from '../_services/patient-data-service';
+import { MachineLearnService } from '../_services/machine-learn-service';
 
 @Component({
   selector: 'app-fill-form',
@@ -49,7 +50,11 @@ export class FillFormComponent implements OnInit {
   ancestorIllnessesAdded: string[] = [];
   ancestorDeathCausesAdded: string[] = [];
 
-  constructor(private _fb: FormBuilder, private fillFormService: FillFormService, public dialog: MatDialog) {
+  constructor(
+    private _fb: FormBuilder,
+    private patientDataService: PatientDataService,
+    public dialog: MatDialog,
+    private machineLearnService: MachineLearnService) {
     this.helathStatusForm = this._fb.group({
       gender: ['', [Validators.required]],
       dateOfBirth: ['', [Validators.required]],
@@ -93,9 +98,8 @@ export class FillFormComponent implements OnInit {
   }
 
   initForm(): void {
-    this.fillFormService.getPatientData().subscribe(
+    this.patientDataService.getPatientData().subscribe(
       data => {
-        console.log(data);
         this.helathStatusForm.patchValue({
 
           gender: GenderEnumReMap.get(data.gender),
@@ -131,6 +135,12 @@ export class FillFormComponent implements OnInit {
         this.knownIllnessesAdded = data.knownIllnesses.map((x: string) => IllnessCategoryEnumReMap.get(x)) as [];
         this.ancestorIllnessesAdded = data.ancestorIllnesses.map((x: string) => IllnessCategoryEnumReMap.get(x)) as [];
         this.ancestorDeathCausesAdded = data.ancestorDeathCauses.map((x: string) => IllnessCategoryEnumReMap.get(x)) as [];
+
+        this.activeSportActivities = this.activeSportActivities.filter((x: string) => !this.activeSportActivitiesAdded.includes(x));
+        this.postSportActivities = this.postSportActivities.filter((x: string) => !this.postSportActivitiesAdded.includes(x));
+        this.knownIllnesses = this.knownIllnesses.filter((x: string) => !this.knownIllnessesAdded.includes(x));
+        this.ancestorIllnesses = this.ancestorIllnesses.filter((x: string) => !this.ancestorIllnessesAdded.includes(x));
+        this.ancestorDeathCauses = this.ancestorDeathCauses.filter((x: string) => !this.ancestorDeathCausesAdded.includes(x));
 
       },
       error => {
@@ -190,10 +200,6 @@ export class FillFormComponent implements OnInit {
 
   submitForm() {
     if (this.helathStatusForm.valid) {
-
-      console.log(this.activeSportActivitiesAdded);
-      console.log(this.postSportActivitiesAdded);
-
       let data: PatientDataDTO = {
         ...this.helathStatusForm.value,
         gender: GenderEnumMap.get(this.helathStatusForm.get('gender')?.value),
@@ -214,20 +220,24 @@ export class FillFormComponent implements OnInit {
         ancestorDeathCauses: this.ancestorDeathCausesAdded.map((x: string) => IllnessCategoryEnumMap.get(x)),
       };
 
-      console.log(data);
 
-      this.fillFormService.create(data).subscribe(res => {
-        this.dialog.open(ConfirmationDialog, {
-          width: '250px',
-          data: { title: 'Submitted', text: 'OK' },
-        })
+
+      this.patientDataService.create(data).subscribe(res => {
+        if (res) {
+          this.machineLearnService.neuralTeachByPatientData(res).subscribe(matrix => {
+          });
+
+          this.dialog.open(ConfirmationDialog, {
+            width: '250px',
+            data: { title: 'Submitted', text: 'OK' },
+          });
+        } else {
+          this.dialog.open(ConfirmationDialog, {
+            width: '250px',
+            data: { title: 'Validation Error', text: 'Please fill form correctly' },
+          })
+        }
       });
-    } else {
-      this.dialog.open(ConfirmationDialog, {
-        width: '250px',
-        data: { title: 'Validation Error', text: 'Please fill form correctly' },
-      })
     }
   }
-
 }

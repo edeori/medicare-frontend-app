@@ -1,6 +1,21 @@
 {
-    "/api/*": {
+    "/api/About/*": {
         "target": "http://localhost:8085",
+        "secure": false,
+        "logLevel": "debug"
+    },
+    "/api/HealthStatus/*": {
+        "target": "http://localhost:8085",
+        "secure": false,
+        "logLevel": "debug"
+    },
+    "/api/DataStore/*": {
+        "target": "http://localhost:8085",
+        "secure": false,
+        "logLevel": "debug"
+    },
+    "/api/MachineLearn/*": {
+        "target": "http://localhost:8095",
         "secure": false,
         "logLevel": "debug"
     }
